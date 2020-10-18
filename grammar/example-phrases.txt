@@ -1,0 +1,30 @@
+now
+today
+18 October 2020
+October 18 2020
+October 18, 2020
+18 Oct 2020
+Oct 18, 2020
+18/10/2020
+10/18/2020
+18-Oct-2020
+13:45
+13.45
+1:45 PM
+13:45:00
+18/10/2020 13:45
+Sunday
+2020-10-18T18:34:46Z (UTC)
+2020-10-18T18:34:46+0000 (ISO-8601)
+Sun, 18 Oct 2020 18:34:46 +0000 (RFC 2822)
+(More examples at https://www.utctime.net/)
+1603046086 (epoch seconds)
+1603046086000 (epoch miliseconds)
+2 seconds
+5 minutes
+1 hour
+7 days ago
+2 weeks ago
+3 months from now
+5 years from 18 October 2020
+2 weeks and 3 days
