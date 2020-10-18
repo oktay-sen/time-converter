@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
+import { Button } from "@blueprintjs/core";
 import './App.css';
 
 function App() {
@@ -9,6 +10,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <p>
+          <Button intent="success" text="Test" onClick={() => alert('hi')} />
         </p>
         <a
           className="App-link"
