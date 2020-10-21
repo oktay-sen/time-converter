@@ -28,3 +28,7 @@ Sun, 18 Oct 2020 18:34:46 +0000 (RFC 2822)
 3 months from now
 5 years from 18 October 2020
 2 weeks and 3 days
+
+every 5 days
+every 2nd hour
+every day at 2am

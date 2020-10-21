@@ -16,6 +16,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "moment": "^2.29.1",
+    "pegjs": "^0.10.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-scripts": "3.4.3",
@@ -25,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "parser-gen": "pegjs -o src/parsing/GeneratedParser.js --extra-options-file pegjsconfig.json src/parsing/grammar.pegjs && sed -i 's/module\\.exports =/const generatedParser =/' src/parsing/GeneratedParser.js && cp -r src/parsing/GeneratedParser.js parser-cli/parser-cli.js && cat parser-cli/appended-runner.js >> parser-cli/parser-cli.js && echo '\nexport default generatedParser' >> src/parsing/GeneratedParser.js",
+    "parser": "node parser-cli/parser-cli.js"
   },
   "eslintConfig": {
     "extends": "react-app"
