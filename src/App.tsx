@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, MenuItem } from "@blueprintjs/core";
 import './App.css';
 import { Suggest, ItemPredicate, ItemRenderer } from "@blueprintjs/select";
+import ParsedTimeInput from './ParsedTimeInput';
 
 export interface AppState {
 
@@ -18,7 +19,7 @@ export default class App extends React.PureComponent<AppProps, AppState> {
     return (
       <div className="App">
         <header className="App-header">
-          
+          <ParsedTimeInput />
         </header>
       </div>
     );

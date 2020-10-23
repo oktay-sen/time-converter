@@ -17,9 +17,20 @@ BeforeDate = durations:Durations Before date:Date {
 }
 
 UnparsedDate = chunks:UnparsedChunk+ {
-    return {
-        type: 'UnparsedDate',
-        value: chunks.join(' ')
+    let unparsedString = chunks.join(' ').trim()
+    let parsedDate = moment.parseZone(unparsedString)
+    // console.log('Found unparsed string ',unparsedString,' result:', parsedDate)
+    if (parsedDate.isValid()) {
+        return {
+            type: 'StaticDate',
+            getValue: () => parsedDate
+        }
+    } else {
+        return {
+            type: 'UnparsedDate',
+            value: chunks.join(' '),
+            getValue: () => parsedDate
+        }
     }
 }
 
@@ -65,21 +76,21 @@ Duration = num:Num _ unit:DurationUnit _ {
 
 DurationUnit = Milliseconds / Seconds / Minutes / Hours / Days / Months / Years
 
-Milliseconds = (("millisecond"i "s"i?) / "ms"i) {
+Milliseconds = ("millisecond"i "s"i? / "ms"i) {
     return {
         type: 'DurationUnit',
         name: 'milliseconds'
     }
 }
 
-Seconds = (("second"i "s"i?) / "s"i) {
+Seconds = ("second"i "s"i? / "s"i !("t"i)) {
     return {
         type: 'DurationUnit',
         name: 'seconds'
     }
 }
 
-Minutes = (("min"i "ute"i? "s"i?) / "m") {
+Minutes = ("min"i "ute"i? "s"i? / "m" !("o"i / "il"i)) {
     return {
         type: 'DurationUnit',
         name: 'minutes'
@@ -121,5 +132,9 @@ And = "and"i _
 From = "from"i _ 
 Before = "before"i _ 
 After = "after"i _ 
+Every = "every"i _
+At = "at"i _
+
+Th = ("st"i / "nd"i / "rd"i) _
 
 _ = " "*
