@@ -1,7 +1,5 @@
 import React from 'react';
-import { Button, MenuItem } from "@blueprintjs/core";
 import './App.css';
-import { Suggest, ItemPredicate, ItemRenderer } from "@blueprintjs/select";
 import ParsedTimeInput from './ParsedTimeInput';
 
 export interface AppState {

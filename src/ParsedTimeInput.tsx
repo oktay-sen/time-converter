@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button, MenuItem } from "@blueprintjs/core";
-import { Suggest, ItemPredicate, ItemRenderer, IItemRendererProps } from "@blueprintjs/select";
-import _ from 'lodash';
+import { MenuItem } from "@blueprintjs/core";
+import { Suggest, IItemRendererProps } from "@blueprintjs/select";
 import GeneratedParser from './parsing/GeneratedParser'
 import { ParsedTime, TimeType } from './parsing/Types'
 

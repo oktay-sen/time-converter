@@ -29,7 +29,7 @@
     "build": "npm run parser-gen && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "parser-gen": "pegjs -o src/parsing/GeneratedParser.ts --extra-options-file pegjsconfig.json src/parsing/grammar.pegjs && sed -i 's/module\\.exports =/const generatedParser =/' src/parsing/GeneratedParser.ts && sed -i 's/\"use strict\";/\\/\\/ @ts-nocheck\\n\\/\\/\\/ <reference path=\".\\/GeneratedParser.d.ts\" \\/>\\n\\nimport moment from \"moment\"\\n/' src/parsing/GeneratedParser.ts && echo '\nexport default generatedParser' >> src/parsing/GeneratedParser.ts"
+    "parser-gen": "pegjs -o src/parsing/GeneratedParser.ts --extra-options-file pegjsconfig.json src/parsing/grammar.pegjs && sed -i 's/module\\.exports =/const generatedParser =/' src/parsing/GeneratedParser.ts && sed -i 's/\"use strict\";/\\/* eslint-disable *\\/\\n\\/\\/ @ts-nocheck\\n\\/\\/\\/ <reference path=\".\\/GeneratedParser.d.ts\" \\/>\\n\\nimport moment from \"moment\"\\n/' src/parsing/GeneratedParser.ts && echo '\nexport default generatedParser' >> src/parsing/GeneratedParser.ts"
   },
   "eslintConfig": {
     "extends": "react-app"

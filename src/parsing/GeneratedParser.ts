@@ -4,6 +4,7 @@
  * http://pegjs.org/
  */
 
+/* eslint-disable */
 // @ts-nocheck
 /// <reference path="./GeneratedParser.d.ts" />
 
