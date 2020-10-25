@@ -1,12 +1,18 @@
 import { Moment } from 'moment'
 
 export enum TimeType {
-    STATIC_DATE = "Date",
-    DYNAMIC_DATE = "Dynamic Date"
+    SimpleDynamicDate = 'SimpleDynamicDate',
+    Ago = 'Ago',
+    AfterDate = 'AfterDate',
+    BeforeDate = 'BeforeDate',
+    StaticDate = 'StaticDate',
+    UnparsedDate = 'UnparsedDate',
+    EpochSeconds = 'EpochSeconds',
+    EpochMilliseconds = 'EpochMilliseconds'
 }
 
 export interface ParsedTime {
     type: TimeType,
     friendlyText: string,
-    getValue: () => Moment
+    getValue: () => Moment | Error
 }

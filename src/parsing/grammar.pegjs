@@ -1,75 +1,101 @@
-Date = DynamicDate / BeforeDate / AfterDate / UnparsedDate
+{
+    const epochSecondThreshold = 100000000
+    const epochMilisecondThreshold = 100000000000
+}
 
-AfterDate = durations:Durations (From / After) date:Date {
+Date = DynamicDate / BeforeDate / AfterDate / EpochSeconds / EpochMilliseconds / UnparsedDate
+
+AfterDate = durations:Durations fromText:(From / After) date:Date {
     return {
         type: 'AfterDate',
-        date: date,
-        duration: durations
+        friendlyText: durations.friendlyText + ' ' + fromText + ' ' + date.friendlyText,
+        getValue: () => durations.addTo(date.getValue())
     }
 }
 
 BeforeDate = durations:Durations Before date:Date {
     return {
         type: 'BeforeDate',
-        date: date,
-        duration: durations
+        friendlyText: durations.friendlyText + ' before ' + date.friendlyText,
+        getValue: () => durations.subtractFrom(date.getValue())
     }
 }
 
-UnparsedDate = chunks:UnparsedChunk+ {
-    let unparsedString = chunks.join(' ').trim()
-    let parsedDate = moment.parseZone(unparsedString)
-    // console.log('Found unparsed string ',unparsedString,' result:', parsedDate)
+UnparsedDate = chunks:$UnparsedChunk+ {
+    const unparsedString = chunks.trim()
+    const parsedDate = moment.parseZone(unparsedString)
     if (parsedDate.isValid()) {
         return {
             type: 'StaticDate',
+            friendlyText: unparsedString,
             getValue: () => parsedDate
         }
     } else {
         return {
             type: 'UnparsedDate',
-            value: chunks.join(' '),
-            getValue: () => parsedDate
+            friendlyText: unparsedString,
+            getValue: () => new Error('Could not parse date: "' + unparsedString + '"')
         }
     }
 }
 
-UnparsedChunk = !(SimpleDynamicDate / Duration / Ago / From / Before / After / And) chunk:[^ ]+ _ {
-    return chunk.join('')
+UnparsedChunk = !(SimpleDynamicDate / Duration / From / Before / After / And / EpochSeconds / EpochMilliseconds) chunk:$[^ ]+ _ {
+    return chunk
 }
 
-DynamicDate = date:(SimpleDynamicDate / DurationAgo) {
+DynamicDate = SimpleDynamicDate / DurationAgo
+
+SimpleDynamicDate = Now / Today / Yesterday
+
+Now = "now"i _ {
     return {
-        type: 'DynamicDate',
-        value: date
+        type: 'SimpleDynamicDate',
+        friendlyText: 'now',
+        getValue: () => moment()
     }
 }
 
-SimpleDynamicDate = word:("now"i / "today"i / "yesterday"i) _ {
+Today = "today"i _ {
     return {
         type: 'SimpleDynamicDate',
-        value: word.toLowerCase()
+        friendlyText: 'today',
+        getValue: () => moment().startOf('day')
+    }
+}
+
+Yesterday = "yesterday"i _ {
+    return {
+        type: 'SimpleDynamicDate',
+        friendlyText: 'yesterday',
+        getValue: () => moment().startOf('day').subtract(1, 'day')
     }
 }
 
 DurationAgo = durations:Durations Ago {
     return {
         type: 'Ago',
-        value: durations
+        friendlyText: durations.friendlyText + " ago",
+        getValue: () => durations.subtractFrom(moment())
     }
 }
 
 
-Durations = first:Duration rest:(And? Duration)* {
+Durations = first:Duration rest:(And? Duration)* &(Ago / From / After / Before) {
     const durations = [first]
     durations.push(...rest.map(andDuration => andDuration[1]))
-    return durations
+
+    return {
+        type: "duration",
+        value: durations,
+        friendlyText: durations.map(d => d.value + " " + d.unit).join(", "),
+        addTo: moment => durations.reduce((m, d) => m.add(d.value, d.unit), moment),
+        subtractFrom: moment => durations.reduce((m, d) => m.subtract(d.value, d.unit), moment)
+    }
 }
 
-Duration = num:Num _ unit:DurationUnit _ {
+Duration = num:SmallNum unit:DurationUnit _ {
     return {
-        type: 'Duration',
-        unit: unit,
+        unit: unit.name,
         value: num
     }
 }
@@ -125,12 +151,30 @@ Years = (("year"i "s"i?) / ("yr"i "s"i?) / "y"i) {
     }
 }
 
-Num = num:[0-9]+ { return parseInt(num, 10) }
+SmallNum = num:Num &{ return num < epochSecondThreshold } { return num }
+
+EpochSeconds = num:Num &{ return num >= epochSecondThreshold && num < epochMilisecondThreshold } {
+    return {
+        type: 'EpochSecond',
+        friendlyText: '' + num,
+        getValue: () => moment.unix(num)
+    }
+}
+
+EpochMilliseconds = num:Num &{ return num >= epochMilisecondThreshold } {
+    return {
+        type: 'EpochMillisecond',
+        friendlyText: '' + num,
+        getValue: () => moment(num)
+    }
+}
+
+Num = num:$[0-9]+ _ { return parseInt(num, 10) }
 
 Ago = "ago"i _ 
 And = "and"i _ 
-From = "from"i _ 
-Before = "before"i _ 
+From = "from"i _ { return 'from' }
+Before = "before"i _ { return 'before' }
 After = "after"i _ 
 Every = "every"i _
 At = "at"i _

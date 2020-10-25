@@ -8,6 +8,6 @@ declare module 'parsing/GeneratedParser' {
 
     export default class GeneratedParser {
         SyntaxError: SyntaxError
-        parse: (input: string, options?: ParserOptions) => any
+        parse: (input: string, options?: ParserOptions) => ParsedTime
     }
 }
