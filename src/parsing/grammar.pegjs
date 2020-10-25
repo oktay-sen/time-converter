@@ -87,15 +87,17 @@ Durations = first:Duration rest:(And? Duration)* &(Ago / From / After / Before) 
     return {
         type: "duration",
         value: durations,
-        friendlyText: durations.map(d => d.value + " " + d.unit).join(", "),
+        friendlyText: durations.map(d => d.friendlyText).join(" "),
         addTo: moment => durations.reduce((m, d) => m.add(d.value, d.unit), moment),
         subtractFrom: moment => durations.reduce((m, d) => m.subtract(d.value, d.unit), moment)
     }
 }
 
 Duration = num:SmallNum unit:DurationUnit _ {
+    const singularUnitName = unit.name.substring(0,unit.name.length - 1)
     return {
         unit: unit.name,
+        friendlyText: num + ' ' + (num === 1 ? singularUnitName : unit.name),
         value: num
     }
 }
