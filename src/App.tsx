@@ -16,9 +16,15 @@ export default class App extends React.PureComponent<AppProps, AppState> {
   public render() {
     return (
       <div className="App">
-        <header className="App-header">
+        <div className="App-Container">
           <ParsedTimeInput onTimeSelect={time => alert(time.getValue().toString())}/>
-        </header>
+          <div className="box"/>
+          <div className="box2"/>
+          <div className="box"/>
+          <div className="box"/>
+          <div className="box2"/>
+          <div className="box"/>
+        </div>
       </div>
     );
   }

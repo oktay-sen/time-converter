@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
 }
 
 .App-header {
@@ -11,6 +13,35 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-Container {
+  width: 80%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-auto-rows: auto;
+  gap: 10px 10px;
+  place-items: center fill;
+  place-content: center center;
+  grid-auto-flow: row;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.Time-Input-Container {
+  grid-column: 1 / 3;
+  width: 100%;
+}
+
+.box {
+  height: 100px;
+  background-color: aqua;
+}
+.box2 {
+  height: 150px;
+  background-color: chartreuse;
 }
 
 .App-link {

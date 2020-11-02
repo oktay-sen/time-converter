@@ -89,15 +89,18 @@ export default class ParsedTimeInput extends React.PureComponent<ParsedTimeInput
   public render() {
     const { currentSuggestion, inputText } = this.state
     return (
-      <TimeSuggest
-        items={currentSuggestion}
-        inputValueRenderer={this.renderSuggestion}
-        itemRenderer={this.renderSuggestionItem}
-        noResults={<MenuItem disabled={true} text="Type a date in " />}
-        query={inputText}
-        onQueryChange={this.handleQueryChange}
-        onItemSelect={this.handleItemSelect}
-      />
+      <div className="Time-Input-Container">
+        <TimeSuggest
+          items={currentSuggestion}
+          inputValueRenderer={this.renderSuggestion}
+          itemRenderer={this.renderSuggestionItem}
+          noResults={<MenuItem disabled={true} text="Type a date in " />}
+          query={inputText}
+          onQueryChange={this.handleQueryChange}
+          onItemSelect={this.handleItemSelect}
+          fill
+        />
+      </div>
     );
   }
 }
