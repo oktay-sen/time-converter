@@ -30,12 +30,6 @@
   transition: all 0.5s ease-out;
 }
 
-/* @media(max-width: 600px) {
-  .App-Container {
-    grid-template-columns: 1fr;
-  }
-} */
-
 .Time-Input-Container {
   grid-column: 1 / -1;
   width: 100%;
