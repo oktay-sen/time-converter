@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Elevation, Popover } from "@blueprintjs/core";
+import { Card, Elevation } from "@blueprintjs/core";
 import BaseTimeCard, { BaseTimeCardProps } from './BaseTimeCard'
 import ClickToCopy from './ClickToCopy'
 import { Moment } from 'moment';
