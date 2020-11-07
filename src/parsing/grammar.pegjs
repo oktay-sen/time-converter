@@ -9,6 +9,7 @@ AfterDate = durations:Durations fromText:(From / After) date:Date {
     return {
         type: 'AfterDate',
         friendlyText: durations.friendlyText + ' ' + fromText + ' ' + date.friendlyText,
+        isDynamic: date.isDynamic,
         getValue: () => durations.addTo(date.getValue())
     }
 }
@@ -17,6 +18,7 @@ BeforeDate = durations:Durations Before date:Date {
     return {
         type: 'BeforeDate',
         friendlyText: durations.friendlyText + ' before ' + date.friendlyText,
+        isDynamic: date.isDynamic,
         getValue: () => durations.subtractFrom(date.getValue())
     }
 }
@@ -28,12 +30,14 @@ UnparsedDate = chunks:$UnparsedChunk+ {
         return {
             type: 'StaticDate',
             friendlyText: unparsedString,
+            isDynamic: false,
             getValue: () => parsedDate
         }
     } else {
         return {
             type: 'UnparsedDate',
             friendlyText: unparsedString,
+            isDynamic: false,
             getValue: () => new Error('Could not parse date: "' + unparsedString + '"')
         }
     }
@@ -51,6 +55,7 @@ Now = "now"i _ {
     return {
         type: 'SimpleDynamicDate',
         friendlyText: 'now',
+        isDynamic: true,
         getValue: () => moment()
     }
 }
@@ -59,6 +64,7 @@ Today = "today"i _ {
     return {
         type: 'SimpleDynamicDate',
         friendlyText: 'today',
+        isDynamic: false,
         getValue: () => moment().startOf('day')
     }
 }
@@ -67,6 +73,7 @@ Yesterday = "yesterday"i _ {
     return {
         type: 'SimpleDynamicDate',
         friendlyText: 'yesterday',
+        isDynamic: false,
         getValue: () => moment().startOf('day').subtract(1, 'day')
     }
 }
@@ -75,6 +82,7 @@ DurationAgo = durations:Durations Ago {
     return {
         type: 'Ago',
         friendlyText: durations.friendlyText + " ago",
+        isDynamic: true,
         getValue: () => durations.subtractFrom(moment())
     }
 }

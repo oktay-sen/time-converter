@@ -65,6 +65,7 @@ export default class ParsedTimeInput extends React.PureComponent<ParsedTimeInput
           currentSuggestion: [{
             type: TimeType.UnparsedDate,
             friendlyText: query,
+            isDynamic: false,
             getValue: () => newError
           }]
         })
@@ -89,15 +90,27 @@ export default class ParsedTimeInput extends React.PureComponent<ParsedTimeInput
   public render() {
     const { currentSuggestion, inputText } = this.state
     return (
-      <TimeSuggest
-        items={currentSuggestion}
-        inputValueRenderer={this.renderSuggestion}
-        itemRenderer={this.renderSuggestionItem}
-        noResults={<MenuItem disabled={true} text="Type a date in " />}
-        query={inputText}
-        onQueryChange={this.handleQueryChange}
-        onItemSelect={this.handleItemSelect}
-      />
+      <div className="Time-Input-Container">
+        <TimeSuggest
+          items={currentSuggestion}
+          inputValueRenderer={this.renderSuggestion}
+          itemRenderer={this.renderSuggestionItem}
+          noResults={<MenuItem disabled={true} text="Type a date in " />}
+          query={inputText}
+          onQueryChange={this.handleQueryChange}
+          onItemSelect={this.handleItemSelect}
+          popoverProps={{
+            position: 'bottom',
+            minimal: true
+          }}
+          inputProps={{
+            style: {
+              textAlign: 'center'
+            }
+          }}
+          fill
+        />
+      </div>
     );
   }
 }
