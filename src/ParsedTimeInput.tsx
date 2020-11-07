@@ -65,6 +65,7 @@ export default class ParsedTimeInput extends React.PureComponent<ParsedTimeInput
           currentSuggestion: [{
             type: TimeType.UnparsedDate,
             friendlyText: query,
+            isDynamic: false,
             getValue: () => newError
           }]
         })
@@ -98,6 +99,15 @@ export default class ParsedTimeInput extends React.PureComponent<ParsedTimeInput
           query={inputText}
           onQueryChange={this.handleQueryChange}
           onItemSelect={this.handleItemSelect}
+          popoverProps={{
+            position: 'bottom',
+            minimal: true
+          }}
+          inputProps={{
+            style: {
+              textAlign: 'center'
+            }
+          }}
           fill
         />
       </div>

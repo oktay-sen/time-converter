@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   background-color: #282c34;
   min-height: 100vh;
 }
@@ -17,21 +16,28 @@
 
 .App-Container {
   width: 80%;
+  max-width: 1200px;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-template-rows: auto;
-  grid-auto-rows: 50px;
   gap: 10px 10px;
   place-items: center fill;
   place-content: center center;
   grid-auto-flow: row;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.5s ease-out;
 }
 
+/* @media(max-width: 600px) {
+  .App-Container {
+    grid-template-columns: 1fr;
+  }
+} */
+
 .Time-Input-Container {
-  grid-column: 1 / 3;
+  grid-column: 1 / -1;
   width: 100%;
 }
 

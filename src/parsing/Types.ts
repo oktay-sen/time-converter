@@ -14,5 +14,6 @@ export enum TimeType {
 export interface ParsedTime {
     type: TimeType,
     friendlyText: string,
+    isDynamic: boolean,
     getValue: () => Moment | Error
 }
