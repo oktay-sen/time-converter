@@ -13,6 +13,7 @@ export default function ClickToCopy({ copyText, children }: PropsWithChildren<Cl
         targetProps={{
             onClick: () => copyText && navigator.clipboard.writeText(copyText)
         }}
+        className="masonry-item"
         fill>
             {children}
             <div style={{padding: 8}}>Copied to clipboard!</div>

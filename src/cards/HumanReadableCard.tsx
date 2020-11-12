@@ -26,7 +26,8 @@ export default class HumanReadableCard extends BaseTimeCard<HumanReadableCardPro
                 interactive={true}
                 elevation={Elevation.TWO}
                 onMouseEnter={this.onMouseEnter}
-                onMouseLeave={this.onMouseLeave}>
+                onMouseLeave={this.onMouseLeave}
+                className="masonry-content">
                 <h5>Date</h5>
                 <p><code>{this.timeToString(time)}</code></p>
             </Card>

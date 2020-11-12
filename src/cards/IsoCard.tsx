@@ -26,7 +26,8 @@ export default class IsoCard extends BaseTimeCard<IsoCardProps, IsoCardState> {
           interactive={true}
           elevation={Elevation.TWO}
           onMouseEnter={this.onMouseEnter}
-          onMouseLeave={this.onMouseLeave}>
+          onMouseLeave={this.onMouseLeave}
+          className="masonry-content">
           <h5>ISO 8601</h5>
           <p><code>{this.timeToString(time)}</code></p>
         </Card>

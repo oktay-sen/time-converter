@@ -26,7 +26,8 @@ export default class UnixMillisecondsCard extends BaseTimeCard<UnixMillisecondsC
                 interactive={true}
                 elevation={Elevation.TWO}
                 onMouseEnter={this.onMouseEnter}
-                onMouseLeave={this.onMouseLeave}>
+                onMouseLeave={this.onMouseLeave}
+                className="masonry-content">
                 <h5>Unix Timestamp (milliseconds)</h5>
                 <p><code>{this.timeToString(time)}</code></p>
             </Card>

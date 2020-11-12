@@ -21,6 +21,36 @@ export default class App extends React.PureComponent<AppProps, AppState> {
     selectedTime: undefined
   }
 
+  private resizeMasonryGridItems() {
+    const grids = [ ...document.getElementsByClassName('masonry-grid') as HTMLCollectionOf<HTMLElement> ]
+
+    grids.forEach(grid => {
+      const items = [ ...document.getElementsByClassName('masonry-item') as HTMLCollectionOf<HTMLElement> ]
+      
+      items.forEach((item, i) => {
+        const contents = item.getElementsByClassName('masonry-content')
+        if (contents.length === 0) return;
+
+        const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'), 10)
+        const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'), 10)
+
+        const rowSpan = Math.ceil((contents[0].getBoundingClientRect().height+rowGap)/(rowHeight+rowGap))
+
+        item.style.gridRowEnd = "span " + rowSpan
+      })
+    })
+  }
+
+  componentDidMount() {
+    window.addEventListener("load", this.resizeMasonryGridItems)
+    window.addEventListener("resize", this.resizeMasonryGridItems)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("load", this.resizeMasonryGridItems)
+    window.removeEventListener("resize", this.resizeMasonryGridItems)
+  }
+
   getCards() {
     const { selectedTime: time } = this.state
 
@@ -40,7 +70,7 @@ export default class App extends React.PureComponent<AppProps, AppState> {
   public render() {
     return (
       <div className="App bp3-dark">
-        <div className="App-Container">
+        <div className="App-Container masonry-grid">
           <ParsedTimeInput onTimeSelect={time => this.setState({ selectedTime: time })}/>
           {this.getCards()}
         </div>
