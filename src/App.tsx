@@ -29,11 +29,11 @@ export default class App extends React.PureComponent<AppProps, AppState> {
     }
 
     return [
-      <HumanReadableCard time={time}/>,
-      <RelativeCard time={time}/>,
-      <IsoCard time={time}/>,
-      <UnixSecondsCard time={time}/>,
-      <UnixMillisecondsCard time={time}/>,
+      <HumanReadableCard time={time} key="HumanReadableCard"/>,
+      <RelativeCard time={time} key="RelativeCard"/>,
+      <IsoCard time={time} key="IsoCard"/>,
+      <UnixSecondsCard time={time} key="UnixSecondsCard"/>,
+      <UnixMillisecondsCard time={time} key="UnixMillisecondsCard"/>,
     ]
   }
 

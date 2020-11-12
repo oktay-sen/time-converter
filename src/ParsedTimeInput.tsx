@@ -30,6 +30,7 @@ export default class ParsedTimeInput extends React.PureComponent<ParsedTimeInput
           {...props}
           text={(time.getValue() as Error).message}
           label="Error"
+          key="error"
           disabled
         />
       } else {
@@ -37,6 +38,7 @@ export default class ParsedTimeInput extends React.PureComponent<ParsedTimeInput
           {...props}
           text={time.friendlyText}
           label={time.type}
+          key="error"
         />
       }
     }

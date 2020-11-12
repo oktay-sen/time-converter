@@ -34,15 +34,6 @@
   width: 100%;
 }
 
-.box {
-  grid-row: span 2;
-  background-color: aqua;
-}
-.box2 {
-  grid-row: span 3;
-  background-color: chartreuse;
-}
-
 .App-link {
   color: #61dafb;
 }
