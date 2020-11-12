@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import HumanReadableCard from './cards/HumanReadableCard';
 import IsoCard from './cards/IsoCard';
 import RelativeCard from './cards/RelativeCard';
 import UnixMillisecondsCard from './cards/UnixMilisecondsCard';
@@ -28,8 +29,9 @@ export default class App extends React.PureComponent<AppProps, AppState> {
     }
 
     return [
-      <IsoCard time={time}/>,
+      <HumanReadableCard time={time}/>,
       <RelativeCard time={time}/>,
+      <IsoCard time={time}/>,
       <UnixSecondsCard time={time}/>,
       <UnixMillisecondsCard time={time}/>,
     ]

@@ -5,16 +5,16 @@ import ClickToCopy from './ClickToCopy'
 import { Moment } from 'moment';
 import { ParsedTime } from '../parsing/Types';
 
-export interface UnixMillisecondsCardState {}
+export interface HumanReadableCardState {}
 
-export interface UnixMillisecondsCardProps extends BaseTimeCardProps {}
+export interface HumanReadableCardProps extends BaseTimeCardProps {}
 
-export default class UnixMillisecondsCard extends BaseTimeCard<UnixMillisecondsCardProps, UnixMillisecondsCardState> {
-  public state: UnixMillisecondsCardState = {}
+export default class HumanReadableCard extends BaseTimeCard<HumanReadableCardProps, HumanReadableCardState> {
+  public state: HumanReadableCardState = {}
 
   timeToString = (time: ParsedTime) => {
     const moment = time.getValue() as Moment
-    return "" + moment.valueOf()
+    return moment.toString()
   }
 
   public render() {
@@ -27,7 +27,7 @@ export default class UnixMillisecondsCard extends BaseTimeCard<UnixMillisecondsC
                 elevation={Elevation.TWO}
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}>
-                <h5>Unix Timestamp (milliseconds)</h5>
+                <h5>Date</h5>
                 <p><code>{this.timeToString(time)}</code></p>
             </Card>
         </ClickToCopy>

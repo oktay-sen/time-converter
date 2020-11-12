@@ -28,7 +28,7 @@ export default class UnixSecondsCard extends BaseTimeCard<UnixSecondsCardProps, 
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}>
                 <h5>Unix Timestamp (seconds)</h5>
-                <p>{this.timeToString(time)}</p>
+                <p><code>{this.timeToString(time)}</code></p>
             </Card>
         </ClickToCopy>
     )

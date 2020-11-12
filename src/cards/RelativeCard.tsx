@@ -17,7 +17,9 @@ export default class RelativeCard extends BaseTimeCard<RelativeCardProps, Relati
       return "Now"
     }
     const moment = time.getValue() as Moment
-    return moment.fromNow()
+    return moment.calendar(null, {
+      sameElse: `[About ${moment.fromNow()}]`
+    })
   }
 
   public render() {
@@ -31,7 +33,7 @@ export default class RelativeCard extends BaseTimeCard<RelativeCardProps, Relati
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}>
                 <h5>Relative Time</h5>
-                <p>{this.timeToString(time)}</p>
+                <p><code>{this.timeToString(time)}</code></p>
             </Card>
         </ClickToCopy>
     )
